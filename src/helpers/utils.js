@@ -18,4 +18,13 @@ function validateNewPrice(product, newPrice) {
   return { is_valid: true, code: 'NEW_PRICE_IS_VALID' }; 
 }
 
-module.exports = { validateNewPrice };
+const newError = (message, name, status) => {
+  const error = new Error(message);
+  error.name = name;
+  error.status = status;
+  return error;
+};
+
+module.exports = newError;
+
+module.exports = { validateNewPrice, newError };

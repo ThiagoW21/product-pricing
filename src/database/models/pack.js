@@ -1,7 +1,5 @@
 'use strict';
 
-const Product = require('./product');
-
 const PackModel = (sequelize, DataTypes) => {
   const Pack = sequelize.define('Pack', {
     id: {
