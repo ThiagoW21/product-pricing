@@ -28,13 +28,6 @@ const ProductModel = (sequelize, DataTypes) => {
   }
   );
 
-  Product.associate = (models) => {
-    Product.belongsToMany(models.Product, {
-      as: 'Packs',
-      through: Product,
-      foreignKey: 'product_id',
-    });
-  };
   return Product;
 };
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const Product = require('./product.model');
+const Product = require('./product');
 
 const PackModel = (sequelize, DataTypes) => {
   const Pack = sequelize.define('Pack', {
@@ -35,6 +35,7 @@ const PackModel = (sequelize, DataTypes) => {
       as: 'Products',
       through: Pack,
       foreignKey: 'pack_id',
+      otherKey: 'pack_id'
     });
   };
 
