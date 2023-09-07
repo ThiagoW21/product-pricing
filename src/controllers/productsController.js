@@ -1,4 +1,7 @@
-const { validateProducts, updateProducts } = require('../services/productsService');
+const {
+  validateProducts,
+  updateProducts,
+} = require("../services/productsService");
 
 async function validate(req, res) {
   const products = await validateProducts(req.body);
