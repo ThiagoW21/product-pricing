@@ -1,10 +1,11 @@
-const productsService = require('../services/productsService');
+const { validateProducts } = require('../services/productsService');
 
-const productsController = {
-  getAll: async (_req, res) => {
-    const products = await productsService.getAll();
-    res.status(200).json(products);
-  },
+async function validate(req, res) {
+  const products = await validateProducts(req.body);
+
+  res.status(200).json(products);
+}
+
+module.exports = {
+  validate,
 };
-
-module.exports = productsController;

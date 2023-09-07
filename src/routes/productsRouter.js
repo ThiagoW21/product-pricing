@@ -1,8 +1,10 @@
 const { Router } = require('express');
-const productsController = require('../controllers/productsController');
+const { validate } = require('../controllers/productsController');
+const validateBodyMiddlware = require('../middlewares/validateBody');
 
 const router = Router();
 
-router.get('/', productsController.getAll);
+router.use(validateBodyMiddlware);
+router.post('/validate', validate);
 
 module.exports = router;

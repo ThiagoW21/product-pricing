@@ -6,6 +6,8 @@ const config = {
   database: process.env.MYSQL_DATABASE,
   host: process.env.MYSQL_HOST,
   dialect: 'mysql',
+  dialectOptions: { decimalNumbers: true },
+  logging: false,
 };
 
 module.exports = {

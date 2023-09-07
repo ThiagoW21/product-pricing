@@ -1,11 +1,35 @@
 const db = require('../database/models');
+const { validateNewPrice } = require('../helpers/utils');
 
-const productsService = {
-  getAll: async () => {
-    const products = await db.Product.findByPk(1000);
+async function getProductByCode(code) {
+  return db.Product.findByPk(code);
+}
 
-    return products;
-  },
+async function validateProduct(productToValidate) {
+  const product = await getProductByCode(productToValidate.product_code);
+  
+  let validates = { is_valid: false, code: 'PRODUCT_NOT_FOUND' };
+
+  if (!product) {
+    return { ...productToValidate, ...validates };
+  }
+
+  validates = validateNewPrice(product, productToValidate.new_price);
+
+  return {
+    ...productToValidate,
+    ...validates,
+    sales_price: product.sales_price,
+    name: product.name,
+  };
+}
+
+async function validateProducts(productsToValidate) {
+  const products = await Promise.all(productsToValidate.map(validateProduct));
+
+  return products;
+}
+
+module.exports = {
+  validateProducts,
 };
-
-module.exports = productsService;
