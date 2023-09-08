@@ -21,10 +21,11 @@ async function validateProduct(productToValidate) {
   validates = validateNewPrice(product, productToValidate.new_price);
 
   return {
-    ...productToValidate,
-    ...validates,
-    sales_price: product.sales_price,
+    product_code: product.code,
     name: product.name,
+    sales_price: product.sales_price,
+    new_price: productToValidate.new_price,
+    ...validates,
   };
 }
 
