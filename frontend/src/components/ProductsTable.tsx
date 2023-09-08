@@ -27,7 +27,7 @@ const ProductsTable: FunctionComponent<ITableProps> = ({ rows }) => {
   return (
     <TableContainer
       component={Paper}
-      sx={{ height: 500, mt: 5 }}
+      sx={{ maxHeight: 500, mt: 5 }}
       variant="outlined"
     >
       <Table aria-label="caption table">
@@ -41,17 +41,14 @@ const ProductsTable: FunctionComponent<ITableProps> = ({ rows }) => {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
+              <TableCell>{row.product_code}</TableCell>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.product_code}</TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.sales_price}</TableCell>
-              <TableCell align="right">{row.new_price}</TableCell>
-              <TableCell align="right">
-                {row.is_valid ? "Válido" : "Inválido"}
-              </TableCell>
-              <TableCell align="right">{productMessages[row.code]}</TableCell>
+              <TableCell>{row.sales_price}</TableCell>
+              <TableCell>{row.new_price}</TableCell>
+              <TableCell>{row.is_valid ? "Válido" : "Inválido"}</TableCell>
+              <TableCell>{productMessages[row.code]}</TableCell>
             </TableRow>
           ))}
         </TableBody>

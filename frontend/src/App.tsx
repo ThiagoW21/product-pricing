@@ -8,29 +8,45 @@ import Button from "./components/Button";
 import ProductsTable from "./components/ProductsTable";
 import LoadCSV from "./components/LoadCSV";
 import { useState } from "react";
-import { validateCsvData } from "./services";
+import { validateCsvData, updateProductsPrices } from "./services";
 import { IProduct } from "./interfaces";
 
 function App() {
   const [csvData, setCsvData] = useState<Array<Object>>([]);
   const [csvIsValid, setCsvIsValid] = useState<boolean>(true);
   const [rows, setRows] = useState<Array<IProduct>>([]);
-  function validateCsv() {
-    const res = validateCsvData(csvData);
-    res.then((data) => setRows(data));
+
+  function checkProducts(res: Array<IProduct>) {
+    const hasError = res.some(({ is_valid }) => !is_valid);
+    setCsvIsValid(hasError);
+  }
+
+  async function validateCsv() {
+    const response = await validateCsvData(csvData);
+    setRows(response);
+
+    checkProducts(response);
+  }
+
+  async function updateProducts() {
+    await updateProductsPrices(csvData);
+
+    setCsvIsValid(false);
+    setCsvData([]);
+    setRows([]);
   }
 
   return (
     <Container>
       <Box sx={{ flexGrow: 1 }}>
         <Card
-          variant="outlined"
           sx={{
             marginTop: 15,
             display: "flex",
             flexDirection: "column",
             height: 700,
             paddingX: 2,
+            borderRadius: 4,
           }}
         >
           <CardContent>
@@ -68,6 +84,7 @@ function App() {
                       variant="contained"
                       textColor="white"
                       disabled={csvIsValid}
+                      onClick={updateProducts}
                     />
                   </Grid>
                 </>
