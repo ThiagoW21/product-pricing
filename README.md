@@ -29,7 +29,7 @@ Feito isso, retorne para a raíz do projeto e execute o comando abaixo para inst
 npm run dev:prestart
 ```
 
-**Atenção:** O comando acima, além de instalar o front e o back, irá criar e popular o banco de dados utilizando os dados que foi adicionado no arquivo `.env`
+**Atenção:** O comando acima, além de instalar o front e o back, irá criar e popular o banco de dados utilizando os dados que foi adicionado no arquivo `.env`, existe um arquivo chamado `.env.example` que deve ser utilizado como base
 
 ### 🔐 Executando o projeto
 
