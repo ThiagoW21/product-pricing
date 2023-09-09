@@ -2,7 +2,18 @@
 
 <strong>👨‍💻 Sobre o projeto</strong>
 
-Este projeto foi desenvolvido com o objetivo de realizar precificação de produtos de forma massiva, utilizando apenas um arquivo CSV com o código do produto e o preço. O mesmo foi desenvolvido utilizando as seguintes tecnologias:
+Este projeto foi desenvolvido com o objetivo de realizar precificação de produtos de forma massiva, utilizando apenas um arquivo CSV com o código do produto e o preço. 
+
+Exemplo de CSV que o sistema aceita:
+
+| product_code | new_price |
+|--------------|-----------|
+| 200          | 20.1      |
+| 230          | 10.4      |
+
+
+
+O mesmo foi desenvolvido utilizando as seguintes tecnologias:
 
 - Sequelize
 - Node
