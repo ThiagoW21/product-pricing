@@ -30,17 +30,17 @@ const ProductsTable: FunctionComponent<ITableProps> = ({ rows }) => {
       sx={{ maxHeight: 500, mt: 5 }}
       variant="outlined"
     >
-      <Table aria-label="caption table">
+      <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
-            {headers.map((header) => (
-              <TableCell key={header}>{header}</TableCell>
+            {headers.map((header, index) => (
+              <TableCell key={index}>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {rows.map((row, index) => (
+            <TableRow key={index}>
               <TableCell>{row.product_code}</TableCell>
               <TableCell component="th" scope="row">
                 {row.name}

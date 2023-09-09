@@ -19,10 +19,16 @@ export interface IProductMessage {
 
 export interface IButtonProps {
   text: string;
-  color?: "primary" | "secondary";
+  color?: "primary" | "secondary" | "error";
   variant?: "outlined" | "contained" | "text";
   textColor?: string;
   onClick?: () => void;
   startIcon?: ReactNode;
   disabled?: boolean;
+}
+
+export interface ISnackbar {
+  message: string,
+  color: 'success' | 'error',
+  show: boolean
 }

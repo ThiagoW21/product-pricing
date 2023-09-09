@@ -1,0 +1,28 @@
+{
+  "name": "api-express-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:prestart": "./scripts/prestart-dev.sh",
+    "db:reset": "./scripts/reset-db-dev.sh",
+    "dev": "./scripts/prepare-for-dev.sh",
+    "pm2": "./node_modules/.bin/pm2",
+    "stop": "(pm2 stop all && pm2 delete all) | grep 'PM2'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThiagoW21/product-pricing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThiagoW21/product-pricing/issues"
+  },
+  "homepage": "https://github.com/ThiagoW21/product-pricing#readme",
+  "dependencies": {
+    "pm2": "^5.3.0"
+  }
+}

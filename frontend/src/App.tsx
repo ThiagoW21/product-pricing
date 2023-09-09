@@ -9,32 +9,76 @@ import ProductsTable from "./components/ProductsTable";
 import LoadCSV from "./components/LoadCSV";
 import { useState } from "react";
 import { validateCsvData, updateProductsPrices } from "./services";
-import { IProduct } from "./interfaces";
+import { IProduct, ISnackbar } from "./interfaces";
+import Snackbar from "@mui/material/Snackbar";
+import { SnackbarMessages } from "./helpers/enums";
+import Alert from "@mui/material/Alert";
+import Delete from "@mui/icons-material/Delete";
 
 function App() {
   const [csvData, setCsvData] = useState<Array<Object>>([]);
   const [csvIsValid, setCsvIsValid] = useState<boolean>(true);
   const [rows, setRows] = useState<Array<IProduct>>([]);
+  const [snackbarData, setSnackbarData] = useState<ISnackbar>({
+    show: false,
+    message: "",
+    color: "success",
+  });
 
-  function checkProducts(res: Array<IProduct>) {
-    const hasError = res.some(({ is_valid }) => !is_valid);
-    setCsvIsValid(hasError);
+  function checkProducts(data: Array<IProduct>) {
+    const hasError = data.some(({ is_valid }) => !is_valid);
+    setCsvIsValid(!hasError);
   }
 
   async function validateCsv() {
-    const response = await validateCsvData(csvData);
-    setRows(response);
+    await validateCsvData(csvData)
+      .then(({ data }) => {
+        setRows(data);
+        checkProducts(data);
+        setSnackbarData({
+          color: "success",
+          message: SnackbarMessages.ValidationSuccess,
+          show: true,
+        });
+      })
+      .catch(() => {
+        setSnackbarData({
+          color: "error",
+          message: SnackbarMessages.ValidationFailure,
+          show: true,
+        });
+      });
+  }
 
-    checkProducts(response);
+  function resetData() {
+    setCsvData([]);
+    setRows([]);
+    setCsvIsValid(false);
   }
 
   async function updateProducts() {
-    await updateProductsPrices(csvData);
+    await updateProductsPrices(csvData)
+      .then(() => {
+        setSnackbarData({
+          color: "success",
+          message: SnackbarMessages.UpdateSuccess,
+          show: true,
+        });
+      })
+      .catch(() => {
+        setSnackbarData({
+          color: "error",
+          message: SnackbarMessages.UpdateFailure,
+          show: true,
+        });
+      });
 
-    setCsvIsValid(false);
-    setCsvData([]);
-    setRows([]);
+    resetData();
   }
+
+  const handleCloseSnackbar = () => {
+    setSnackbarData({ ...snackbarData, show: false });
+  };
 
   return (
     <Container>
@@ -56,7 +100,7 @@ function App() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid container item xs={20} md={6}>
+              <Grid container item xs={20} md={4}>
                 <img width={250} src="/shopper_logo.png" alt="logo" />
               </Grid>
 
@@ -72,6 +116,15 @@ function App() {
                 <>
                   <Grid container item xs={20} md={3} sx={{ mt: 1 }}>
                     <Button
+                      text="Remover arquivo"
+                      variant="text"
+                      color="error"
+                      onClick={resetData}
+                      startIcon={<Delete />}
+                    />
+                  </Grid>
+                  <Grid container item xs={20} md={2} sx={{ mt: 1 }}>
+                    <Button
                       text="Validar"
                       variant="outlined"
                       onClick={validateCsv}
@@ -83,7 +136,7 @@ function App() {
                       color="primary"
                       variant="contained"
                       textColor="white"
-                      disabled={csvIsValid}
+                      disabled={!csvIsValid}
                       onClick={updateProducts}
                     />
                   </Grid>
@@ -94,6 +147,20 @@ function App() {
           <ProductsTable rows={rows} />
         </Card>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={snackbarData.show}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbarData.color}
+          sx={{ width: "100%" }}
+        >
+          {snackbarData.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
