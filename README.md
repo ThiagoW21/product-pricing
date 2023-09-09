@@ -33,7 +33,7 @@ npm run dev:prestart
 
 ### 🔐 Executando o projeto
 
-Agora, para executar o projto basta rodar o comando abaixo
+Agora, para executar o projeto basta rodar o comando abaixo
 
 ```sh
 npm run dev
