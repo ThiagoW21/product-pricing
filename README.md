@@ -5,6 +5,7 @@
 Este projeto foi desenvolvido com o objetivo de realizar precificação de produtos de forma massiva, utilizando apenas um arquivo CSV com o código do produto e o preço. O mesmo foi desenvolvido utilizando as seguintes tecnologias:
 
 - Sequelize
+- Node
 - Express
 - React
 - Typescript
