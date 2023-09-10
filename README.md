@@ -1,4 +1,4 @@
-# Boas vindas ao DEVinventary
+# Boas vindas ao projeto Product Princing
 
 <strong>👨‍💻 Sobre o projeto</strong>
 
